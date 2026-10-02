@@ -27,16 +27,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full">
         <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-16 lg:py-0 lg:px-24">
-          <div className="lg:flex lg:justify-between lg:gap-4">
+          <div className="lg:flex lg:gap-16">
             {/* Left: stays in place while the page scrolls */}
             <Sidebar />
 
             {/* Right: scrolls with the page */}
-            <main className="pt-24 lg:w-[52%] lg:py-24">{children}</main>
+            <main className="pt-24 lg:flex-1 lg:py-24">{children}</main>
           </div>
         </div>
 
-        {/* Soft fade at the bottom edge so content isn't hard-cut mid-line */}
+        {/* Soft fade at the bottom edge */}
         <div
           aria-hidden="true"
           className="pointer-events-none fixed inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-background to-transparent"

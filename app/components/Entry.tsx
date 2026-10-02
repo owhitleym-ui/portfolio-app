@@ -33,7 +33,7 @@ export function TagList({ tags, className = "" }: { tags: string[]; className?: 
       {tags.map((tag) => (
         <li
           key={tag}
-          className="rounded-full border border-black/15 px-3 py-0.5 font-condensed text-xs tracking-wider"
+          className="rounded-full border border-black/15 px-3.5 py-1 font-condensed text-sm tracking-wider"
         >
           {tag}
         </li>

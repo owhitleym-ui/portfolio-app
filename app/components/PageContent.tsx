@@ -10,10 +10,10 @@ type PageContentProps = {
 const ACCENTS = ["var(--lagoon)", "var(--plum)", "var(--sage)", "var(--cocoa)"];
 
 // Shared scrollable content column used by every page.
-// On navigation, the old page turns away to reveal the new one (see globals.css).
+// On navigation, the old page slides away to reveal the new one (see globals.css).
 export default function PageContent({ sections }: PageContentProps) {
   return (
-    <ViewTransition exit="page-turn-out" enter="page-turn-in" default="none">
+    <ViewTransition exit="page-slide-out" enter="page-slide-in" default="none">
       <ScrollReveal className="flex flex-col">
         {sections.map((section, i) => (
           <Section

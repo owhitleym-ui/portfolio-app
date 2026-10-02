@@ -12,18 +12,17 @@ const SOCIAL_LINKS = {
 };
 
 const NAV_ITEMS = [
-  { label: "home", href: "/" },
+  { label: "about me", href: "/" },
   { label: "experience", href: "/experience" },
   { label: "projects", href: "/projects" },
   { label: "design", href: "/design" },
-  { label: "writing", href: "/writing" },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[48%] lg:flex-col lg:py-24">
+    <aside className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/3 lg:shrink-0 lg:flex-col lg:py-24">
       <h1 className="text-4xl leading-tight font-semibold sm:text-5xl">
         <Link href="/">
           <AnimatedName />

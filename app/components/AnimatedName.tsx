@@ -1,5 +1,8 @@
 const LINES = ["Olive", "Whitley"];
 
+// Each letter's outline cycles through the palette
+const OUTLINES = ["var(--lagoon)", "var(--plum)", "var(--sage)"];
+
 // Deterministic "random" offsets so every letter drifts on its own rhythm
 // without causing a hydration mismatch.
 function letterStyle(i: number) {
@@ -8,6 +11,7 @@ function letterStyle(i: number) {
     "--delay": `${-((i * 13) % 9) * 0.4}s`,
     "--amp": `${2 + ((i * 5) % 4)}px`,
     "--tilt": `${(((i * 11) % 5) - 2) * 0.8}deg`,
+    "--outline": OUTLINES[i % OUTLINES.length],
   } as React.CSSProperties;
 }
 
@@ -23,7 +27,7 @@ export default function AnimatedName() {
           {line.split("").map((char) => {
             const i = index++;
             return (
-              <span key={i} className="name-letter" style={letterStyle(i)}>
+              <span key={i} className="name-letter" data-char={char} style={letterStyle(i)}>
                 {char}
               </span>
             );

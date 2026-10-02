@@ -14,7 +14,8 @@ export default function Home() {
                 I&apos;m a junior at <strong className="text-black">Vanderbilt University</strong>{" "}
                 studying Computer Science with a minor in Innovation &amp; Design Strategy. I&apos;m
                 interested in UI/UX design and software engineering, especially the space where
-                technology and art overlap.
+                technology and art overlap. On campus, I help bring AI tools into nursing education
+                with CHAIN and lead design and marketing for VandyHacks.
               </p>
               <p data-reveal>
                 Before transferring to Vanderbilt, I studied Computer Science at Vassar College,
@@ -22,8 +23,10 @@ export default function Home() {
                 the Asian Student Alliance and Club Tennis.
               </p>
               <p data-reveal>
-                I like building things that work well and feel good to use: clean architecture under
-                the hood, with interfaces that feel considered and expressive.
+                I&apos;m drawn to innovation and love picking up new technologies, whether that&apos;s
+                a new framework, a new design tool, or a new way of solving an old problem. Above
+                all, I want what I build to feel intuitive: interfaces that are friendly, easy to
+                use, and make sense the moment you see them.
               </p>
             </div>
           ),
@@ -33,10 +36,22 @@ export default function Home() {
           title: "Skills",
           content: (
             <div className="space-y-6">
-              <SkillGroup label="Languages" tags={["Java", "Python", "OCaml", "C++", "HTML/CSS"]} />
+              <SkillGroup label="Languages" tags={["Java", "Python", "OCaml", "C++", "HTML/CSS", "R"]} />
               <SkillGroup
                 label="Tools & Platforms"
-                tags={["Figma", "Android Studio", "Firestore", "GitHub", "GitLab", "LaTeX", "Excel"]}
+                tags={[
+                  "Figma",
+                  "Canva",
+                  "Miro",
+                  "Android Studio",
+                  "Firestore",
+                  "GitHub",
+                  "GitLab",
+                  "LaTeX",
+                  "Excel",
+                  "Amplify",
+                  "Copilot",
+                ]}
               />
               <SkillGroup
                 label="Spoken"
