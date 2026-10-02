@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AnimatedName from "@/app/components/AnimatedName";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/app/components/icons";
 
-// TODO: fill in your real profile links
 const SOCIAL_LINKS = {
-  github: "https://github.com/",
-  linkedin: "https://www.linkedin.com/",
-  email: "mailto:",
+  github: "https://github.com/owhitleym-ui",
+  linkedin: "https://www.linkedin.com/in/olive-whitley-87319033a",
+  email: "mailto:owhitleym@gmail.com",
 };
 
 const NAV_ITEMS = [
@@ -26,9 +26,7 @@ export default function Sidebar() {
     <aside className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[48%] lg:flex-col lg:py-24">
       <h1 className="text-4xl leading-tight font-semibold sm:text-5xl">
         <Link href="/">
-          Olive
-          <br />
-          Whitley
+          <AnimatedName />
         </Link>
       </h1>
 
@@ -53,7 +51,7 @@ export default function Sidebar() {
                 <Link
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={isActive ? "font-semibold" : "hover:font-medium"}
+                  className="nav-link"
                 >
                   {item.label}
                 </Link>
@@ -62,6 +60,9 @@ export default function Sidebar() {
           })}
         </ul>
       </nav>
+
+      {/* Reserved for art / logos — fills the remaining sidebar height */}
+      <div className="mt-12 hidden flex-1 lg:block" />
     </aside>
   );
 }

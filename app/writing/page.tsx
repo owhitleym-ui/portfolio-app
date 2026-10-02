@@ -5,12 +5,19 @@ export const metadata: Metadata = {
   title: "Writing | Olive Whitley",
 };
 
-// TODO: replace with this page's real section headings
 export default function WritingPage() {
   return (
     <PageContent
       sections={[
-        { id: "writing", title: "Writing" },
+        {
+          id: "writing",
+          title: "Writing",
+          content: (
+            <p data-reveal className="leading-relaxed text-black/80">
+              Notes on design, code, and the space between them. Coming soon.
+            </p>
+          ),
+        },
       ]}
     />
   );

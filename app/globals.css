@@ -3,11 +3,23 @@
 :root {
   --background: #ffffff;
   --foreground: #000000;
+
+  /* Palette from the Figma file */
+  --lagoon: #5097a4;
+  --cocoa: #261616;
+  --plum: #572247;
+  --sage: #a6bf77;
+
+  --page-turn-duration: 700ms;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-lagoon: var(--lagoon);
+  --color-cocoa: var(--cocoa);
+  --color-plum: var(--plum);
+  --color-sage: var(--sage);
   --font-sans: var(--font-poppins);
   --font-condensed: var(--font-roboto-condensed);
 }
@@ -16,4 +28,205 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+}
+
+/* ---------- Name: jumbled letters drifting up and down ---------- */
+
+.name-letter {
+  display: inline-block;
+  animation: letter-float var(--dur) ease-in-out var(--delay) infinite alternate;
+}
+
+@keyframes letter-float {
+  from {
+    transform: translateY(calc(var(--amp) * -1)) rotate(calc(var(--tilt) * -1));
+  }
+  to {
+    transform: translateY(var(--amp)) rotate(var(--tilt));
+  }
+}
+
+/* ---------- Nav: green light-up ---------- */
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  padding: 0 0.5em 0 0.75em;
+  margin-left: -0.75em;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  inset: 0.45em 0;
+  z-index: -1;
+  border-radius: 999px;
+  background: var(--sage);
+  opacity: 0.5;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition:
+    transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 380ms ease,
+    box-shadow 380ms ease;
+}
+
+.nav-link:hover::before,
+.nav-link:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.nav-link:active::before {
+  opacity: 1;
+  box-shadow: 0 0 22px 2px color-mix(in srgb, var(--sage) 80%, transparent);
+}
+
+.nav-link[aria-current="page"] {
+  font-weight: 600;
+}
+
+.nav-link[aria-current="page"]::before {
+  opacity: 1;
+  transform: scaleX(1);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--sage) 60%, transparent);
+  animation: nav-light-up 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes nav-light-up {
+  0% {
+    transform: scaleX(0);
+    box-shadow: 0 0 0 transparent;
+  }
+  55% {
+    transform: scaleX(1);
+    box-shadow: 0 0 28px 6px color-mix(in srgb, var(--sage) 90%, transparent);
+  }
+}
+
+/* ---------- Page turn between routes (React <ViewTransition>) ---------- */
+
+/* Keep the sidebar still; only the content column animates */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+/* The old page lifts off its left edge like a sheet being turned... */
+::view-transition-group(.page-turn-out) {
+  z-index: 2;
+}
+
+::view-transition-image-pair(.page-turn-out) {
+  background: var(--background);
+  transform-origin: left center;
+  animation: page-turn-out var(--page-turn-duration) cubic-bezier(0.55, 0.05, 0.35, 1) both;
+}
+
+@keyframes page-turn-out {
+  0% {
+    transform: perspective(2200px) rotateY(0deg);
+    box-shadow: 0 0 0 transparent;
+    filter: brightness(1);
+    opacity: 1;
+  }
+  70% {
+    box-shadow: 30px 10px 50px rgba(38, 22, 22, 0.25);
+    filter: brightness(0.85);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(2200px) rotateY(-95deg);
+    box-shadow: 40px 10px 60px rgba(38, 22, 22, 0);
+    filter: brightness(0.7);
+    opacity: 0;
+  }
+}
+
+/* ...revealing the new page underneath, shuffling into place */
+::view-transition-group(.page-turn-in) {
+  z-index: 1;
+}
+
+::view-transition-new(.page-turn-in) {
+  animation: page-shuffle-in var(--page-turn-duration) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes page-shuffle-in {
+  from {
+    transform: translate(10px, 18px) rotate(1.2deg) scale(0.97);
+    opacity: 0.4;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- Section separation on scroll ---------- */
+
+.section-divider {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--from), var(--to));
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  .section-divider {
+    animation: divider-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+}
+
+@keyframes divider-draw {
+  from {
+    transform: scaleX(0);
+    opacity: 0.2;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Items slide and fade in as they scroll into view (see ScrollReveal.tsx) */
+.reveal-ready [data-reveal] {
+  transition:
+    opacity 700ms ease-out,
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-ready [data-reveal]:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .name-letter,
+  .nav-link[aria-current="page"]::before,
+  .section-divider {
+    animation: none !important;
+  }
+
+  .reveal-ready [data-reveal] {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
